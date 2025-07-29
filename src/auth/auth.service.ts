@@ -11,6 +11,7 @@ import { LoginDto } from './dto/login.dto';
 export class AuthService {
     constructor(@InjectRepository(User) private userRepo: Repository<User>, private jwtService:JwtService) {}
     async register(dto: RegisterDto) {
+        console.log('DTO recibido:', dto);
         const hashedPassword = await bcrypt.hash(dto.password, 10);
         const user = this.userRepo.create({email:dto.email, password:hashedPassword});
         await this.userRepo.save(user);
@@ -18,6 +19,7 @@ export class AuthService {
     }
 
     async login(dto: LoginDto) {
+        console.log('DTO recibido:', dto);
         const user = await this.userRepo.findOne({ where: { email: dto.email } });
         if (!user || !(await bcrypt.compare(dto.password, user.password))) {
             throw new Error('Invalid credentials');

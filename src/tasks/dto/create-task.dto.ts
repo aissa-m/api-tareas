@@ -2,7 +2,7 @@ import { IsString, IsOptional, IsBoolean } from 'class-validator';
 
 export class CreateTaskDto {
   @IsString()
-  title: string;
+  titulo: string;
 
   @IsOptional()
   @IsBoolean()
